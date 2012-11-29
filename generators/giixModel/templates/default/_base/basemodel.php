@@ -62,6 +62,25 @@ abstract class <?php echo $this->baseModelClass; ?> extends <?php echo $this->ba
 	public function tableName() {
 		return '<?php echo $tableName; ?>';
 	}
+	public function behaviors()
+	{
+		return array(
+			'LoggableBehavior'=> array(
+				'class' => 'application.extensions.modules.auditTrail.behaviors.LoggableBehavior',
+				'ignored' => array(
+					'created',
+					'modified',
+				)
+			)
+		);
+	}
+	public function beforeSave() {
+		if ($this->isNewRecord)
+			$this->created = new CDbExpression('UTC_TIMESTAMP()');
+
+	    $this->modified = new CDbExpression('UTC_TIMESTAMP()');
+		return parent::beforeSave();
+	}
 
 	public static function label($n = 1) {
 		return Yii::t('app', '<?php echo $modelClass; ?>|<?php echo $this->pluralize($modelClass); ?>', $n);
