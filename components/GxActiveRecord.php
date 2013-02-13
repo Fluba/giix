@@ -15,7 +15,7 @@
  * @author Rodrigo Coelho <rodrigo@giix.org>
  * @package giix.components
  */
-abstract class GxActiveRecord extends CActiveRecord {
+abstract class GxActiveRecord extends BaseActiveRecord {
 
 	/**
 	 * @var string The separator (delimiter) used to separate the primary keys values in a
